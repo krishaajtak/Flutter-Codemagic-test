@@ -1,0 +1,55 @@
+# Automatically generated on 2022-05-14 UTC from https://codemagic.io/app/627f2e1d2d98fda50e45ee0a/settings
+# Note that this configuration is not an exact match to UI settings. Review and adjust as necessary.
+
+workflows:
+  default-workflow:
+    name: Default Workflow
+    max_build_duration: 60
+    environment:
+      flutter: stable
+      xcode: latest
+      cocoapods: default
+    scripts:
+      - |
+        # set up debug keystore
+        rm -f ~/.android/debug.keystore
+        keytool -genkeypair \
+          -alias androiddebugkey \
+          -keypass android \
+          -keystore ~/.android/debug.keystore \
+          -storepass android \
+          -dname 'CN=Android Debug,O=Android,C=US' \
+          -keyalg 'RSA' \
+          -keysize 2048 \
+          -validity 10000
+      - |
+        # set up local properties
+        echo "flutter.sdk=$HOME/programs/flutter" > "$FCI_BUILD_DIR/android/local.properties"
+      - flutter packages pub get
+      - flutter build appbundle --debug
+      - find . -name "Podfile" -execdir pod install \;
+      - flutter build ios --debug --no-codesign
+    artifacts:
+      - build/**/outputs/apk/**/*.apk
+      - build/**/outputs/bundle/**/*.aab
+      - build/**/outputs/**/mapping.txt
+      - build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+      - '*.snap'
+      - build/windows/**/*.msix
+      - flutter_drive.log
+    publishing:
+      email:
+        recipients:
+          - krish.bhanushali@aajtak.com
+      firebase:
+        firebase_token: Encrypted(Z0FBQUFBQmlmejRYUl9UNFZZZENoazlIMGFKbGwwZ2oxWDYtdTk2Q0FDeXpZUXdJMlhwa2FyRmk3Y2JBdlY4TnlNM2w4eTlCREw2UHpVM05CWGJhWXpSQnNRWi1xb0pvQUV4eEk3Y19BNGFnbzNlSjJwTDdKRzc3c1BCQVU2S1FEYWlycXg1aGc0VFVMYUhYcGprQWU5UTUzZUhpQjZlOHFaZjZUbWJWWmlkeXk1OHlzbG5KME5YWUZnLW9IM2FNcFIzV29HYl9jMHJvbGtxS2FUOG8zMGtkaEJWNi1wT0JYQT09)
+        ios:
+          app_id: 1:974810573095:ios:bc8361a7cbc6c59c2c6102
+          groups:
+            - betatest
+        android:
+          app_id: 1:974810573095:android:f01e68ef1440455a2c6102
+          groups:
+            - betatest
+          artifact_type: apk
