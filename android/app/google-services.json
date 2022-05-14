@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "974810573095",
+    "project_id": "fluttercodema",
+    "storage_bucket": "fluttercodema.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:974810573095:android:f01e68ef1440455a2c6102",
+        "android_client_info": {
+          "package_name": "com.firetest.testingfire"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "974810573095-nsb2lq1gka2tpljndc27u0d8fji29qla.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3g3GnSdErT34HY0UvNBwZeak0nh6lmLs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "974810573095-nsb2lq1gka2tpljndc27u0d8fji29qla.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
